@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:isaka2/timer.dart';
+import 'package:isaka2/timer2.dart';
 
 void main() {
   runApp(const CountdownTimer());
 }
+
+////impoliteメッセージの場合は
+//　runApp(const CountdownTimer());
+////politeメッセージの場合は
+///　runApp(const CountdownTimer2());
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

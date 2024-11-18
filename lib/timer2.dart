@@ -3,16 +3,16 @@ import 'dart:math';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
-////impoliteメッセージ
+////politeメッセージ
 
-class CountdownTimer extends StatefulWidget {
-  const CountdownTimer({super.key});
+class CountdownTimer2 extends StatefulWidget {
+  const CountdownTimer2({super.key});
 
   @override
-  State<CountdownTimer> createState() => _CountdownTimerState();
+  State<CountdownTimer2> createState() => _CountdownTimer2State();
 }
 
-class _CountdownTimerState extends State<CountdownTimer> {
+class _CountdownTimer2State extends State<CountdownTimer2> {
   int _remainingTime = 35;
   Timer? _timer;
   bool remain1 = false;
@@ -43,7 +43,7 @@ class _CountdownTimerState extends State<CountdownTimer> {
     int soundIndex = _availableSounds[randomIndex]; // ランダムにインデックスを取得
     _availableSounds.removeAt(randomIndex); // 使用済み音声をリストから削除
 
-    String fileName = 'im$soundIndex.mp3';
+    String fileName = 'p$soundIndex.mp3';
     await player.setSource(AssetSource(fileName));
     await player.resume();
 
