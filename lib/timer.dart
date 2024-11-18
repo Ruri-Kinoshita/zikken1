@@ -1,35 +1,55 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
-class countdownTimer extends StatefulWidget {
-  const countdownTimer({super.key});
+class CountdownTimer extends StatefulWidget {
+  const CountdownTimer({super.key});
 
   @override
-  State<countdownTimer> createState() => _countdownTimerState();
+  State<CountdownTimer> createState() => _CountdownTimerState();
 }
 
-class _countdownTimerState extends State<countdownTimer> {
+class _CountdownTimerState extends State<CountdownTimer> {
   int _remainingTime = 40;
   Timer? _timer;
   bool remain1 = false;
   bool remain2 = false;
   bool remain3 = false;
-  bool remain4 = false;
   bool timeup = false;
   bool timerstart = false;
 
-  late AudioPlayer player; // AudioPlayerインスタンスを定義
+  late AudioPlayer player;
+  final Random _random = Random();
+
+  List<int> _availableSounds =
+      List.generate(5, (index) => index + 1); // 使用可能な音声リスト
 
   @override
   void initState() {
     super.initState();
-    player = AudioPlayer(); // インスタンスを初期化
+    player = AudioPlayer();
   }
 
-  Future<void> remainSound1() async {
-    await player.setSource(AssetSource('sound1.mp3')); // 正しいファイルパスを指定
+  Future<void> playRandomSound() async {
+    if (_availableSounds.isEmpty) {
+      // リストが空なら再度初期化（全音声が一巡した場合）
+      _availableSounds = List.generate(5, (index) => index + 1);
+    }
+
+    int randomIndex = _random.nextInt(_availableSounds.length);
+    int soundIndex = _availableSounds[randomIndex]; // ランダムにインデックスを取得
+    _availableSounds.removeAt(randomIndex); // 使用済み音声をリストから削除
+
+    String fileName = 'im$soundIndex.mp3';
+    await player.setSource(AssetSource(fileName));
     await player.resume();
+
+    DateTime now = DateTime.now(); // 現在の時間を取得
+    String formattedTime =
+        '${now.hour}:${now.minute}:${now.second}'; // 時間をフォーマット
+    debugPrint('$fileName が再生されました（再生時間: $formattedTime）');
+    debugPrint('残りの使用可能な音声: $_availableSounds');
   }
 
   void timeupSound() {
@@ -42,13 +62,20 @@ class _countdownTimerState extends State<countdownTimer> {
     _timer?.cancel();
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
-        // デバッグ時は0を59にするとよい
         if (_remainingTime > 0) {
           _remainingTime--;
-          if (_remainingTime < 32 && !remain1) {
+          if (_remainingTime < 34 && !remain1) {
             remain1 = true;
-            remainSound1();
-            debugPrint('8秒経ったよ');
+            playRandomSound();
+            debugPrint('6秒経ったよ');
+          } else if (_remainingTime < 28 && !remain2) {
+            remain2 = true;
+            playRandomSound();
+            debugPrint('12秒経ったよ');
+          } else if (_remainingTime < 22 && !remain3) {
+            remain3 = true;
+            playRandomSound();
+            debugPrint('18秒経ったよ');
           }
         } else {
           timeup = true;
@@ -63,7 +90,7 @@ class _countdownTimerState extends State<countdownTimer> {
   @override
   void dispose() {
     _timer?.cancel();
-    player.dispose(); // AudioPlayerのリソースを解放
+    player.dispose();
     super.dispose();
   }
 
@@ -93,9 +120,7 @@ class _countdownTimerState extends State<countdownTimer> {
                               '$_remainingTime',
                               style: const TextStyle(fontSize: 210),
                             ),
-                            const SizedBox(
-                              width: 5,
-                            ),
+                            const SizedBox(width: 5),
                             const Column(
                               children: [
                                 SizedBox(

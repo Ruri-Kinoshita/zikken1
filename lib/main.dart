@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:isaka2/timer.dart';
 
 void main() {
-  runApp(const countdownTimer());
+  runApp(const CountdownTimer());
 }
 
 class MyApp extends StatelessWidget {
