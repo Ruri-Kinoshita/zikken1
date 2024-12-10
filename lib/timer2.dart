@@ -13,11 +13,13 @@ class CountdownTimer2 extends StatefulWidget {
 }
 
 class _CountdownTimer2State extends State<CountdownTimer2> {
-  int _remainingTime = 35;
+  int _remainingTime = 55;
   Timer? _timer;
   bool remain1 = false;
   bool remain2 = false;
   bool remain3 = false;
+  bool remain4 = false;
+  bool remain5 = false;
   bool timeup = false;
   bool timerstart = false;
 
@@ -60,24 +62,32 @@ class _CountdownTimer2State extends State<CountdownTimer2> {
 
   void startTimer() {
     timerstart = true;
-    _remainingTime = 35;
+    _remainingTime = 55;
     _timer?.cancel();
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         if (_remainingTime > 0) {
           _remainingTime--;
-          if (_remainingTime < 31 && !remain1) {
+          if (_remainingTime < 51 && !remain1) {
             remain1 = true;
             playRandomSound();
             debugPrint('5秒経ったよ');
-          } else if (_remainingTime < 21 && !remain2) {
+          } else if (_remainingTime < 41 && !remain2) {
             remain2 = true;
             playRandomSound();
             debugPrint('15秒経ったよ');
-          } else if (_remainingTime < 11 && !remain3) {
+          } else if (_remainingTime < 31 && !remain3) {
             remain3 = true;
             playRandomSound();
             debugPrint('25秒経ったよ');
+          } else if (_remainingTime < 21 && !remain4) {
+            remain4 = true;
+            playRandomSound();
+            debugPrint('35秒経ったよ');
+          } else if (_remainingTime < 11 && !remain5) {
+            remain5 = true;
+            playRandomSound();
+            debugPrint('45秒経ったよ');
           }
         } else {
           timeup = true;
@@ -113,14 +123,14 @@ class _CountdownTimer2State extends State<CountdownTimer2> {
                   : Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text('残り時間', style: TextStyle(fontSize: 64)),
+                        const Text('残り時間', style: TextStyle(fontSize: 70)),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             const SizedBox(width: 64),
                             Text(
                               '$_remainingTime',
-                              style: const TextStyle(fontSize: 210),
+                              style: const TextStyle(fontSize: 400),
                             ),
                             const SizedBox(width: 5),
                             const Column(

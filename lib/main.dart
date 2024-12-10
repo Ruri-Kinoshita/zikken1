@@ -3,7 +3,7 @@ import 'package:isaka2/timer.dart';
 import 'package:isaka2/timer2.dart';
 
 void main() {
-  runApp(const CountdownTimer());
+  runApp(const CountdownTimer2());
 }
 
 ////impoliteメッセージの場合は
