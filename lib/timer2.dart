@@ -66,15 +66,15 @@ class _CountdownTimer2State extends State<CountdownTimer2> {
       setState(() {
         if (_remainingTime > 0) {
           _remainingTime--;
-          if (_remainingTime < 30 && !remain1) {
+          if (_remainingTime < 31 && !remain1) {
             remain1 = true;
             playRandomSound();
             debugPrint('5秒経ったよ');
-          } else if (_remainingTime < 20 && !remain2) {
+          } else if (_remainingTime < 21 && !remain2) {
             remain2 = true;
             playRandomSound();
             debugPrint('15秒経ったよ');
-          } else if (_remainingTime < 10 && !remain3) {
+          } else if (_remainingTime < 11 && !remain3) {
             remain3 = true;
             playRandomSound();
             debugPrint('25秒経ったよ');
